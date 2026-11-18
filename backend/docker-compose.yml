@@ -1,0 +1,56 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: walkie
+      POSTGRES_USER: walkie
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-walkie_dev_password}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  livekit:
+    image: livekit/livekit-server:latest
+    restart: unless-stopped
+    command: --config /etc/livekit.yaml
+    ports:
+      - "7880:7880"
+      - "7881:7881"
+      - "50000-50200:50000-50200/udp"
+    volumes:
+      - ./livekit.yaml:/etc/livekit.yaml:ro
+
+  coturn:
+    image: coturn/coturn:latest
+    restart: unless-stopped
+    network_mode: host
+    command:
+      - -n
+      - --log-file=stdout
+      - --listening-port=3478
+      - --tls-listening-port=5349
+      - --lt-cred-mech
+      - --user=${TURN_USER:-walkie}:${TURN_PASS:-walkie_turn_secret}
+      - --realm=${TURN_REALM:-walkie.example.com}
+
+  backend:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - postgres
+      - livekit
+    environment:
+      PORT: 8080
+      DATABASE_URL: postgres://walkie:${POSTGRES_PASSWORD:-walkie_dev_password}@postgres:5432/walkie
+      JWT_SECRET: ${JWT_SECRET:-replace_with_64_char_random_secret}
+      LIVEKIT_API_KEY: ${LIVEKIT_API_KEY:-devkey}
+      LIVEKIT_API_SECRET: ${LIVEKIT_API_SECRET:-secret_change_me_in_production_min_32_chars}
+      LIVEKIT_PUBLIC_URL: ${LIVEKIT_PUBLIC_URL:-ws://10.0.2.2:7880}
+      FIREBASE_SERVICE_ACCOUNT_PATH: ${FIREBASE_SERVICE_ACCOUNT_PATH:-}
+    ports:
+      - "8080:8080"
+
+volumes:
+  pg_data:

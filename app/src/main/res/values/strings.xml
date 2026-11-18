@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Global Walkie Talkie</string>
+    <string name="fgs_channel_name">Active Radio Channel</string>
+    <string name="fgs_channel_description">Keeps Walkie-Talkie audio connected in the background and when screen is off</string>
+    <string name="alert_channel_name">Channel Wake Alerts</string>
+    <string name="alert_channel_description">Push alerts when friends request you on a radio channel</string>
+    <string name="notification_listening">Listening on %1$s</string>
+    <string name="notification_speaking">Speaking now: %1$s</string>
+    <string name="notification_transmitting">Transmitting on %1$s</string>
+    <string name="notification_reconnecting">Reconnecting to %1$s…</string>
+    <string name="action_mute">Mute</string>
+    <string name="action_unmute">Unmute</string>
+    <string name="action_leave">Leave</string>
+</resources>

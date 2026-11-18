@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Global Walkie Talkie</string>
+    <string name="fgs_channel_name">قناة الراديو النشطة</string>
+    <string name="fgs_channel_description">يحافظ على اتصال الصوت في الخلفية وعند إغلاق الشاشة</string>
+    <string name="alert_channel_name">تنبيهات استيقاظ القناة</string>
+    <string name="alert_channel_description">إشعارات فورية عند دعوتك للتحدث على قناة لاسلكية</string>
+    <string name="notification_listening">استماع على %1$s</string>
+    <string name="notification_speaking">يتحدث الآن: %1$s</string>
+    <string name="notification_transmitting">إرسال صوتي على %1$s</string>
+    <string name="notification_reconnecting">إعادة الاتصال بـ %1$s…</string>
+    <string name="action_mute">كتم</string>
+    <string name="action_unmute">إلغاء الكتم</string>
+    <string name="action_leave">مغادرة</string>
+</resources>
